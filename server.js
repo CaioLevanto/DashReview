@@ -9,6 +9,12 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('New connection executed', socket.id)
+  
+  socket.on('msg', (msg) => {
+    console.log(msg)
+
+    socket.broadcast.emit('msg', socket.id + ' connected');
+  })
 })
 
 http.listen(3000, function() {

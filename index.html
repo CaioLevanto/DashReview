@@ -1,9 +1,31 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <h1>Socket.io</h1>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io()
-    </script>
-  </body>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='/main.css'>
+</head>
+<body>
+  <h1>Socket.io</h1>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <div id="msg"></div>
+
+  <script>
+    const socket = io()
+    
+    socket.on('connect', function() {
+      $("#msg").append('connected with id:' + socket.id + ' <br>');
+
+      socket.emit('msg', 'I am connected ' + socket.id);
+    })
+
+    socket.on('msg', function(msg) {
+      $("#msg").append(msg + '<br>');
+    })
+  </script>
+</body>
 </html>
